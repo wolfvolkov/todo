@@ -1,5 +1,4 @@
 var ObjectStorage = function ObjectStorage( name, duration ) {
-
     var self,
     name = name || '_objectStorage',
     defaultDuration = 5000;
@@ -12,13 +11,11 @@ var ObjectStorage = function ObjectStorage( name, duration ) {
         self.duration = duration || defaultDuration;
         self._init();
         ObjectStorage.instances[ name ] = self;
-    }
-    
+    }    
     return self;
 };
 ObjectStorage.instances = {};
 ObjectStorage.prototype = {
-    // type == local || session
     _save: function ( type ) {
         var stringified = JSON.stringify( this[ type ] ),
         storage = window[ type + 'Storage' ];
@@ -26,11 +23,9 @@ ObjectStorage.prototype = {
             storage.setItem( this._name, stringified );
         }
     },
-
     _get: function ( type ) {
         this[ type ] = JSON.parse( window[ type + 'Storage' ].getItem( this._name ) ) || {};
     },
-
     _init: function () {
         var self = this;
         self._get( 'local' );
@@ -44,7 +39,6 @@ ObjectStorage.prototype = {
 
         window.addEventListener( 'beforeunload', function () {
             self._save( 'local' );
-
         });
     },
     timeoutId: null,
@@ -55,19 +49,19 @@ ObjectStorage.prototype = {
 var storage = new ObjectStorage;
 var tasks = new Object();
 var subTid = 0;
-
+var d = new Date(); 
+var date = (d.getFullYear() - 2000);
 if(storage.local.t1){
 	tasks = storage.local;
 }else{
 		tasks["t0"] = {
-		                        date : new Date(),
+		                        date : date.getDate().getMonth(),
 		                        name : "Создать новые задачи",
 		                        id : 0,
 		                        state : false,
 		                        subtasks : {}
 		                      }; 
 	}
-
 var tId = 0;
 Drow();
 function Drow(){
@@ -78,7 +72,7 @@ function Drow(){
 		html+= '<div class="panel panel-default" id = "t'+tasks[i].id+'">';
 		html+= '<div class="panel-heading row">';
 		html+= '<h4 class="panel-title col-lg-8">';
-		html+= '<a data-toggle="collapse" data-parent="#accordion" href="#collapse'+tasks[i].id+'" class="collapsed">'+tasks[i].name+'</a>';
+		html+= '<a data-toggle="collapse" data-parent="#accordion" href="#collapse'+tasks[i].id+'" class="collapsed">'+tasks[i].name+'</a><span class="tdate pull-right">('+tasks[i].date+')</span>';
 		html+= '</h4>';
 		html+= '<div class="task_control pull-right col-lg-4">';
 		html+= '<button  type="button" class="btn btn-success"><span class="glyphicon glyphicon-ok glyphicon-white"></span></button>';
@@ -134,7 +128,7 @@ function DrowModal(){
 }
 function addTask(){
     tasks["t"+tId] = {
-                        date : new Date(),
+                        date : d.getDate()+ ".0" + (d.getMonth() + 1) + "." + Math.round(date) + ".г",
                         name : $('#taskNameAdd').val(),
                         id : tId,
                         state : false,
@@ -154,7 +148,7 @@ $('#addButton').on('click',function(){
 		$('#task_settings').fadeIn();
 	}
 	else{
-		$('#taskNameAdd').val(" ");
+		$('#taskNameAdd').val("");
 	}
 });
 $('#addSubButton').on('click',function(){
@@ -173,7 +167,6 @@ function controls(){
 		Drow();
 	});
 }
-
 $('.modal-footer button').on('click',function(){
 	tasks["t"+(tId-1)].name = $('#task_settings form #taskName').val();
 	$('#taskNameAdd').val(" ");
@@ -182,6 +175,5 @@ $('.modal-footer button').on('click',function(){
 	Drow();
 	subTid = 0;
 });
-// $('#myTab li').click(Drow());
 $('.content_wrapper').css('padding-bottom',$('footer').height());
-storage.local = {};
+// storage.local = {};
