@@ -55,7 +55,7 @@ if(storage.local.t1){
 	tasks = storage.local;
 }else{
 		tasks["t0"] = {
-		                        date : date.getDate().getMonth(),
+		                        date : d.getDate()+ ".0" + (d.getMonth() + 1) + "." + Math.round(date) + ".г",
 		                        name : "Создать новые задачи",
 		                        id : 0,
 		                        state : false,
@@ -65,16 +65,15 @@ if(storage.local.t1){
 var tId = 0;
 Drow();
 function Drow(){
-	console.log(tId); 
 	$('.panel-group').empty();
 	var html = "";
 	for(var i in tasks){
 		html+= '<div class="panel panel-default" id = "t'+tasks[i].id+'">';
 		html+= '<div class="panel-heading row">';
-		html+= '<h4 class="panel-title col-lg-8">';
+		html+= '<h4 class="panel-title col-lg-10">';
 		html+= '<a data-toggle="collapse" data-parent="#accordion" href="#collapse'+tasks[i].id+'" class="collapsed">'+tasks[i].name+'</a><span class="tdate pull-right">('+tasks[i].date+')</span>';
 		html+= '</h4>';
-		html+= '<div class="task_control pull-right col-lg-4">';
+		html+= '<div class="task_control pull-right col-lg-2">';
 		html+= '<button  type="button" class="btn btn-success"><span class="glyphicon glyphicon-ok glyphicon-white"></span></button>';
 		html+= '</div>';
 		html+= '</div>';
@@ -121,12 +120,14 @@ $('#subTaskNameAdd').bind('change click keyup',function(){
 		$('#addSubButton').attr("disabled","disabled");
 	}
 });
-function DrowModal(){
-	$('.modal-body ul').append("<li id = '"+subTid+"'>"+tasks["t"+(tId-1)].subtasks[subTid]+"</li>");
-	console.log(tasks["t"+(tId-1)].subtasks);
+function DrowModal(){	
+	$('.modal-body ul').append("<li id = '"+subTid+"'>"+tasks["t"+tId].subtasks[subTid]+"</li>");
 		subTid+=1;
 }
 function addTask(){
+		for(var i in tasks){
+		tId = tasks[i].id+1;
+	}  
     tasks["t"+tId] = {
                         date : d.getDate()+ ".0" + (d.getMonth() + 1) + "." + Math.round(date) + ".г",
                         name : $('#taskNameAdd').val(),
@@ -136,23 +137,21 @@ function addTask(){
                       };    
     
     storage.local = tasks;
-    for(var i in tasks){
-    	tId = tasks[i].id+1;
-    }  
-    Drow();
+Drow();
 }
 $('#addButton').on('click',function(){
 	addTask();
 	if($('form .checkbox input').prop('checked')){
 		$('#task_settings form #taskName').val($('#taskNameAdd').val());
 		$('#task_settings').fadeIn();
+		$('.modal-body ul').empty();
 	}
 	else{
 		$('#taskNameAdd').val("");
 	}
 });
 $('#addSubButton').on('click',function(){
-	tasks["t"+(tId-1)].subtasks[subTid] = $('#subTaskNameAdd').val();
+	tasks["t"+tId].subtasks[subTid] = $('#subTaskNameAdd').val();
 	
 	$('#subTaskNameAdd').val("")
 	DrowModal();
@@ -168,7 +167,7 @@ function controls(){
 	});
 }
 $('.modal-footer button').on('click',function(){
-	tasks["t"+(tId-1)].name = $('#task_settings form #taskName').val();
+	tasks["t"+tId].name = $('#task_settings form #taskName').val();
 	$('#taskNameAdd').val(" ");
 	$('#task_settings').fadeOut();
 	console.log(tasks["t"+(tId-1)]);

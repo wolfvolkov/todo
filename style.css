@@ -1,7 +1,4 @@
-body{
-	background: #CCC;
-}
-a, a:hover, a:active{
+a, a:hover, a:active, button, button:hover, button:active{
 	outline: none;
 }
 .wrapper{
@@ -25,7 +22,9 @@ footer{
 }
 footer .container{
 	height: 100px;
-	background: #000;
+	background: #fff;
+	border-top: 1px solid #ccc;
+	text-align: center;
 }
 header{
 	padding: 15px;
@@ -51,4 +50,12 @@ header{
 }
 #compliteTasks button{
 	display: none;
+}
+#addSubButton{
+	margin-top: 25px;
+	height: 33px;
+	width: 81px;
+}
+.panel-title {
+	line-height: 27px; 
 }
