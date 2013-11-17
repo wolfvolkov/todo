@@ -8,59 +8,45 @@
 	
 </head>
 <body>
-	<div class="wrapper container">
-		<header></header>
+	<div class="wrapper">
+		
 		<div class="content_wrapper">
+				<div class="container">
 			<div class="row">
 				<div class="col-lg-12">
-					
 
+				<header class="row">
 					<ul id="myTab" class="nav nav-tabs">
-						<li class="active"><a href="#newTasks" data-toggle="tab">Home</a></li>
-						<li class=""><a href="#compliteTasks" data-toggle="tab">Profile</a></li>
+						<li class="active col-lg-6"><a href="#newTasks" data-toggle="tab" >Активные задачи</a></li>
+						<li class=" col-lg-6"><a href="#compliteTasks" data-toggle="tab">Завершенные задачи</a></li>
 					</ul>
+				</header>
 					<input type="text" id="taskNameAdd">
-					<input type="button" id="addButton">
+					<button id="addButton" class="btn"><span class="glyphicon glyphicon-plus"></span></button>
 
 					<div id="myTabContent" class="tab-content">
 						<div class="tab-pane fade active in" id="newTasks">
-							
-							
+
+
 							<div class="panel-group" id="accordion">
-								<div class="panel panel-default forcopy">
-									<div class="panel-heading row">
-										<h4 class="panel-title col-lg-8">
-											<a data-toggle="collapse" data-parent="#accordion" href="#collapseOne">
-												Добавить новые задачи
-											</a>
-										</h4>
-										<div class="task_control pull-right col-lg-4">
-											<button type="button" class="btn btn-success">Success</button>
-										</div>
-									</div>
-									<div id="collapseOne" class="panel-collapse collapse in">
-										<div class="panel-body">
-											Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus terry richardson ad squid. 3 wolf moon officia aute, non cupidatat skateboard dolor brunch. Food truck quinoa nesciunt laborum eiusmod. Brunch 3 wolf moon tempor, sunt aliqua put a bird on it squid single-origin coffee nulla assumenda shoreditch et. Nihil anim keffiyeh helvetica, craft beer labore wes anderson cred nesciunt sapiente ea proident. Ad vegan excepteur butcher vice lomo. Leggings occaecat craft beer farm-to-table, raw denim aesthetic synth nesciunt you probably haven't heard of them accusamus labore sustainable VHS.
-										</div>
-									</div>
-								</div>
-								
+
 							</div>
 						</div>
 						<div class="tab-pane fade" id="compliteTasks">
 							<div class="panel-group" id="accordion">
-								
+
 							</div>
 						</div>
 					</div>
 				</div>
 			</div>
 		</div>
+		</div>
+		<footer>
+			<div class="comtainer"></div>
+		</footer>
 	</div>
-	<footer>
-		
-	</footer>
-</div>
+
 </body>
 <script type="text/javascript" src="js/jquery-2.0.3.min.js"></script>
 <script src="js/bootstrap.min.js"></script>

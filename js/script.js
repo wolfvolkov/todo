@@ -34,7 +34,6 @@ ObjectStorage.prototype = {
     _init: function () {
         var self = this;
         self._get( 'local' );
-        self._get( 'session' );
 
         ( function callee() {
             self.timeoutId = setTimeout( function () {
@@ -45,28 +44,42 @@ ObjectStorage.prototype = {
 
         window.addEventListener( 'beforeunload', function () {
             self._save( 'local' );
-            self._save( 'session' );
+
         });
     },
     timeoutId: null,
     local: {},
-    session: {}
+
 };
 
 var storage = new ObjectStorage;
 var tasks = new Object();
-console.log(tasks);
+console.log(storage.local.t1);
+if(storage.local.t1){
+	tasks = storage.local;
+}else{
+		tasks["t0"] = {
+		                        date : new Date(),
+		                        name : "Создать новые задачи",
+		                        id : 0,
+		                        state : false
+		                      }; 
+	}
+
 var tId = 0;
 
+for(var i in tasks){
+	tId = tasks[i].id+1;
+
+} 
 
 
-// console.log(tlength);
 Drow();
 function Drow(){
-    tasks = storage.local;
+    // 
     for(var i in tasks){
         tId = tasks[i].id+1;
-    }    
+    }   
     $('.panel-group').empty();
     var html = "";
     for(var i in tasks){
@@ -82,24 +95,26 @@ function Drow(){
         html+= '<button type="button" class="btn btn-success">Success</button>';
         html+= '</div>';
         html+= '</div>';
-        html+= '<div id="collapse'+tasks[i].id+'" class="panel-collapse collapse in"><div class="panel-body">';
+        html+= '<div id="collapse'+tasks[i].id+'" class="panel-collapse collapse"><div class="panel-body">';
         html+= '';
         html+= '</div></div>';
-        html+= '</div>';        
-    }
-    if(tasks[i].state === true){
-        $('#compliteTasks .panel-group').html(html);
-        console.log("compliteTasks");
-    }
-    else{
-        $('#newTasks .panel-group').html(html);
-        console.log("#newTasks");
-    }
+        html+= '</div>'; 
+        if(tasks[i].state === true){
+        $('#compliteTasks .panel-group').append(html);
+    	}
+	    else{
+	        $('#newTasks .panel-group').append(html);
+	    }  
+	    html = "";     
+    }   
+
     
-    html = "";
+
+    controls();
 }
 
 $('#addButton').click(function(){
+
     tasks["t"+tId] = {
                         date : new Date(),
                         name : $('#taskNameAdd').val(),
@@ -107,24 +122,25 @@ $('#addButton').click(function(){
                         state : false
                       };
 
-    tId += 1;
+    
     $('#taskNameAdd').val(" ");
-    console.log(tasks);
     storage.local = tasks;
     Drow();
 });
 
-
-	$('.btn-success').click(function(){
+function controls(){
+	$('.btn-success').on('click', function(){
 		var panel = $(this).parents('.panel');
 		var pId = panel.attr('id');
 		panel.fadeOut();
 		tasks[pId].state = true;
-		console.log(tasks);
 		Drow();
 	});
-
+}
 $('#myTab li').click(Drow());
 
 
-// storage.local = {};
+$('.content_wrapper').css('padding-bottom',$('footer').height());
+
+
+storage.local = {};

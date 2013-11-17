@@ -2,12 +2,16 @@ body{
 	background: #CCC;
 }
 .wrapper{
-	position: relative;
+	position: relative ;
 	min-height: 100%;
 }
 .content_wrapper{
-	height: 1000px;
+	/*height: 1000px;*/
 	width: 100%;
+
+	display: block;
+}
+.content_wrapper .container{
 	background: #fff;
 }
 footer{
@@ -16,4 +20,8 @@ footer{
 	background: #000;
 	position: absolute;
 	bottom: 0px;
+}
+header{
+	padding: 15px;
+	text-align: center;
 }
