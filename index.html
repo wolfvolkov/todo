@@ -4,7 +4,7 @@
 	<meta charset="utf-8">	
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 	<link rel="stylesheet" href="css/bootstrap.min.css">
-	<link rel="stylesheet" type="text/css" href="style.css">
+	<link rel="stylesheet" type="text/css" href="css/style.css">
 	
 </head>
 <body>
@@ -12,16 +12,16 @@
 		<div class="content_wrapper">
 			<div class="container">
 				<div class="row">
-					<div class="col-lg-12">
+					<div class="col-lg-12 col-sm-12">
 
 						<header class="row">
 							<ul id="myTab" class="nav nav-tabs">
-								<li class="active col-lg-6"><a href="#newTasks" data-toggle="tab" >Активные задачи</a></li>
+								<li class="active col-lg-6 col-sm-6"><a href="#newTasks" data-toggle="tab" >Активные задачи</a></li>
 								<li class=" col-lg-6"><a href="#compliteTasks" data-toggle="tab">Завершенные задачи</a></li>
 							</ul>
 						</header>
 						<form class="form-inline" role="form">
-							<div class="form-group col-lg-6">
+							<div class="form-group col-lg-6 col-sm-6">
 								<label class="sr-only" for="taskNameAdd">Название задачи:</label>
 								<input type="text" class="form-control" id="taskNameAdd" placeholder="Название задачи">
 							</div>				  
@@ -68,17 +68,17 @@
 				<div class="modal-body">
 					<form class="form-inline" role="form">
 						<div class="row">	
-							<div class="form-group col-lg-12">
+							<div class="form-group col-lg-12 col-sm-12">
 								<label for="taskName">Название задачи:</label>
-								<input type="text" class="form-control col-lg-12" id="taskName" placeholder="Название задачи">
+								<input type="text" class="form-control" id="taskName" placeholder="Название задачи">
 							</div>	
 						</div>	
 						<div class="row">		  
-							<div class="form-group col-lg-10">
+							<div class="form-group col-lg-10 col-sm-10">
 							<label for="subTaskNameAdd">Название подзадачи:</label>								
-								<input type="text" class="form-control col-lg-10" id="subTaskNameAdd" placeholder="Название подзадачи">
+								<input type="text" class="form-control" id="subTaskNameAdd" placeholder="Название подзадачи">
 							</div>	
-							<button type="button" class="btn btn-default col-lg-2" id="addSubButton" disabled="disabled"><span class="glyphicon glyphicon-plus"></span></button></div>
+							<button type="button" class="btn btn-default col-lg-2 col-sm-12" id="addSubButton" disabled="disabled"><span class="glyphicon glyphicon-plus"></span></button></div>
 						</form>
 						<ul>
 

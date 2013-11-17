@@ -65,25 +65,35 @@ if(storage.local.t1){
 var tId = 0;
 Drow();
 function Drow(){
+	$('#taskNameAdd').focus();
 	$('.panel-group').empty();
 	var html = "";
+	var subHtml = "";
+	var taskType = "";
 	for(var i in tasks){
-		html+= '<div class="panel panel-default" id = "t'+tasks[i].id+'">';
+		taskType = "simple";
+		subHtml = "";
+		if(!$.isEmptyObject(tasks[i].subtasks)){
+			subHtml+= '<div id="collapse'+tasks[i].id+'" class="panel-collapse collapse"><div class="panel-body"><ul>';
+			for(var j in tasks[i].subtasks){
+				subHtml+= '<li>'+tasks[i].subtasks[j]+'</li>';
+			}
+			subHtml += '</ul></div>';
+			taskType = "complex";
+			
+		}
+		html+= '<div class="row">';		
+		html+= '<div class="panel panel-default col-lg-12 col-sm-12 '+taskType+'" id = "t'+tasks[i].id+'">';
 		html+= '<div class="panel-heading row">';
-		html+= '<h4 class="panel-title col-lg-10">';
+		html+= '<h4 class="panel-title col-lg-10 col-sm-10">';
 		html+= '<a data-toggle="collapse" data-parent="#accordion" href="#collapse'+tasks[i].id+'" class="collapsed">'+tasks[i].name+'</a><span class="tdate pull-right">('+tasks[i].date+')</span>';
 		html+= '</h4>';
-		html+= '<div class="task_control pull-right col-lg-2">';
+		html+= '<div class="task_control pull-right col-lg-2 col-sm-2">';
 		html+= '<button  type="button" class="btn btn-success"><span class="glyphicon glyphicon-ok glyphicon-white"></span></button>';
 		html+= '</div>';
 		html+= '</div>';
-		if(!$.isEmptyObject(tasks[i].subtasks)){
-			html+= '<div id="collapse'+tasks[i].id+'" class="panel-collapse collapse"><div class="panel-body"><ul>';
-			for(var j in tasks[i].subtasks){
-				html+= '<li>'+tasks[i].subtasks[j]+'</li>';
-			}
-			html+= '</ul></div>';
-		}
+		html+= '</div>';
+		html+=  subHtml;
 		html+= '</div>';
 		html+= '</div>'; 
 		if(tasks[i].state === true){
@@ -95,6 +105,7 @@ function Drow(){
 		html = "";     
 	}     
 	controls();
+	
 }
 $('#taskNameAdd').bind('change click keyup',function(){
 	if($('#taskNameAdd').val().length > 0){
@@ -121,6 +132,7 @@ $('#subTaskNameAdd').bind('change click keyup',function(){
 	}
 });
 function DrowModal(){	
+	$('#subTaskNameAdd').focus();
 	$('.modal-body ul').append("<li id = '"+subTid+"'>"+tasks["t"+tId].subtasks[subTid]+"</li>");
 		subTid+=1;
 }
