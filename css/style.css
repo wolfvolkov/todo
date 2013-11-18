@@ -62,3 +62,7 @@ header{
 }
 .simple a:hover{
 	text-decoration: none;
+}
+.form-inline{
+	margin-bottom: 20px;
+}

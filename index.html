@@ -20,7 +20,7 @@
 								<li class=" col-lg-6"><a href="#compliteTasks" data-toggle="tab">Завершенные задачи</a></li>
 							</ul>
 						</header>
-						<form class="form-inline" role="form">
+						<div class="form-inline">
 							<div class="form-group col-lg-6 col-sm-6">
 								<label class="sr-only" for="taskNameAdd">Название задачи:</label>
 								<input type="text" class="form-control" id="taskNameAdd" placeholder="Название задачи">
@@ -33,7 +33,7 @@
 							<button disabled="disabled"	 type="button" class="btn btn-default" id="addButton" data-toggle="modal"><span class="glyphicon glyphicon-plus"></span></button>
 
 							<button type="button" class="btn btn-default pull-right" id="cleerButton" data-toggle="tooltip" data-placement="left" title="" data-original-title="Очистить список дел"><span class="glyphicon glyphicon-trash"></span></button>
-						</form>
+						</div>
 						<div id="myTabContent" class="tab-content">
 							<div class="tab-pane fade active in" id="newTasks">
 
@@ -68,7 +68,7 @@
 					<h4 class="modal-title" id="task_settingsLabel">Настройка задачи</h4>
 				</div>
 				<div class="modal-body">
-					<form class="form-inline" role="form">
+					<div class="form-inline" role="form">
 						<div class="row">	
 							<div class="form-group col-lg-12 col-sm-12">
 								<label for="taskName">Название задачи:</label>
@@ -81,7 +81,7 @@
 								<input type="text" class="form-control" id="subTaskNameAdd" placeholder="Название подзадачи">
 							</div>	
 							<button type="button" class="btn btn-default col-lg-2 col-sm-12" id="addSubButton" disabled="disabled"><span class="glyphicon glyphicon-plus"></span></button></div>
-						</form>
+						</div>
 						<ul>
 
 						</ul>

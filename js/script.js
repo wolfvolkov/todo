@@ -119,7 +119,10 @@ $('#taskNameAdd').bind('change click keyup',function(){
 	}
 }).keypress(function(e){
 	     	   if(e.keyCode==13){
-	     	   	addTask();
+	     	   		if($('#taskNameAdd').val().length > 0){
+			     	   	addTask();
+			     	   	$('#taskNameAdd').val("");
+			     	}
 	     	   }
 	     	});
 $('#taskName').bind('change click keyup',function(){
@@ -139,10 +142,13 @@ $('#subTaskNameAdd').bind('change click keyup',function(){
 	}
 }).keypress(function(e){
 	     	   if(e.keyCode==13){
-	     	   		addSubTask();
+		     	   	if($('#subTaskNameAdd').val().length > 0){
+		     	   		addSubTask();
+		     	   	}
 	     	   }
 	     	});
 function DrowModal(){	
+	$('#subTaskNameAdd').val("");
 	$('#subTaskNameAdd').focus();
 	$('.modal-body ul').append("<li id = '"+subTid+"'>"+tasks["t"+tId].subtasks[subTid]+"</li>");
 		subTid+=1;
@@ -164,9 +170,10 @@ Drow();
 }
 $('#addButton').on('click',function(){
 	addTask();
-	if($('form .checkbox input').prop('checked')){
-		$('#task_settings form #taskName').val($('#taskNameAdd').val());
+	if($('.form-inline .checkbox input').prop('checked')){
+		$('#task_settings .form-inline #taskName').val($('#taskNameAdd').val());
 		$('#task_settings').fadeIn();
+		$('#subTaskNameAdd').val("");
 		$('.modal-body ul').empty();
 	}
 	else{
@@ -175,7 +182,7 @@ $('#addButton').on('click',function(){
 });
 function addSubTask(){
 	tasks["t"+tId].subtasks[subTid] = $('#subTaskNameAdd').val();	
-	$('#subTaskNameAdd').val("")
+	
 	DrowModal();
 }
 $('#addSubButton').on('click',function(){
@@ -191,7 +198,7 @@ function controls(){
 	});
 }
 $('.modal-footer button').on('click',function(){
-	tasks["t"+tId].name = $('#task_settings form #taskName').val();
+	tasks["t"+tId].name = $('#task_settings .form-inline #taskName').val();
 	$('#taskNameAdd').val("");
 	$('#task_settings').fadeOut();
 	console.log(tasks["t"+(tId-1)]);
