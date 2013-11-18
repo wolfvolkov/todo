@@ -51,19 +51,22 @@ var tasks = new Object();
 var subTid = 0;
 var d = new Date(); 
 var date = (d.getFullYear() - 2000);
-if(storage.local.t1){
-	tasks = storage.local;
-}else{
-		tasks["t0"] = {
-		                        date : d.getDate()+ ".0" + (d.getMonth() + 1) + "." + Math.round(date) + ".г",
-		                        name : "Создать новые задачи",
-		                        id : 0,
-		                        state : false,
-		                        subtasks : {}
-		                      }; 
-	}
-var tId = 0;
-Drow();
+start();
+function start(){
+	if(storage.local.t1){
+		tasks = storage.local;
+	}else{
+			tasks["t0"] = {
+			                        date : d.getDate()+ ".0" + (d.getMonth() + 1) + "." + Math.round(date) + ".г",
+			                        name : "Создать новые задачи",
+			                        id : 0,
+			                        state : false,
+			                        subtasks : {}
+			                      }; 
+		}
+	var tId = 0;
+	Drow();
+}
 function Drow(){
 	$('#taskNameAdd').focus();
 	$('.panel-group').empty();
@@ -114,7 +117,11 @@ $('#taskNameAdd').bind('change click keyup',function(){
 	else{
 		$('#addButton').attr("disabled","disabled");
 	}
-});
+}).keypress(function(e){
+	     	   if(e.keyCode==13){
+	     	   	addTask();
+	     	   }
+	     	});
 $('#taskName').bind('change click keyup',function(){
 	if($('#taskName').val().length > 0){
 		$('.modal-footer button').removeAttr("disabled");
@@ -130,14 +137,18 @@ $('#subTaskNameAdd').bind('change click keyup',function(){
 	else{
 		$('#addSubButton').attr("disabled","disabled");
 	}
-});
+}).keypress(function(e){
+	     	   if(e.keyCode==13){
+	     	   		addSubTask();
+	     	   }
+	     	});
 function DrowModal(){	
 	$('#subTaskNameAdd').focus();
 	$('.modal-body ul').append("<li id = '"+subTid+"'>"+tasks["t"+tId].subtasks[subTid]+"</li>");
 		subTid+=1;
 }
 function addTask(){
-		for(var i in tasks){
+	for(var i in tasks){
 		tId = tasks[i].id+1;
 	}  
     tasks["t"+tId] = {
@@ -162,12 +173,13 @@ $('#addButton').on('click',function(){
 		$('#taskNameAdd').val("");
 	}
 });
-$('#addSubButton').on('click',function(){
-	tasks["t"+tId].subtasks[subTid] = $('#subTaskNameAdd').val();
-	
+function addSubTask(){
+	tasks["t"+tId].subtasks[subTid] = $('#subTaskNameAdd').val();	
 	$('#subTaskNameAdd').val("")
 	DrowModal();
-
+}
+$('#addSubButton').on('click',function(){
+	addSubTask();
 });
 function controls(){
 	$('.btn-success').on('click', function(){
@@ -180,11 +192,17 @@ function controls(){
 }
 $('.modal-footer button').on('click',function(){
 	tasks["t"+tId].name = $('#task_settings form #taskName').val();
-	$('#taskNameAdd').val(" ");
+	$('#taskNameAdd').val("");
 	$('#task_settings').fadeOut();
 	console.log(tasks["t"+(tId-1)]);
 	Drow();
 	subTid = 0;
 });
 $('.content_wrapper').css('padding-bottom',$('footer').height());
-// storage.local = {};
+$('#cleerButton').on('click', function(){
+	storage.local = {};
+	tasks = storage.local;
+	start();
+	Drow();
+}).tooltip();
+
